@@ -82,21 +82,14 @@ $(document).ready(function() {
   $('#weather-btn').click(function() {
     let city = $('#city').val();
     $('#city').val("");
-    $.ajax({
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd3399bee06d5bac1305e8cee4634d69`,
-      type: 'GET',
-      data: {
-        format: 'json'
-      },
-      success: function(response) {
+  $.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd3399bee06d5bac1305e8cee4634d69`).then(function(response) {
         $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
         $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp}.`);
-      },
-      error: function() {
-        $('#errors').text("There was an error processing your request. Please try again.");
-      }
+      }).fail(function(error) {
+        $('#errors').text("There was an error processing your request: ${error.responseText}. Please try again.");
+      });
     });
-  });
+
   $('#random-btn').click(function() {
     $.ajax({
       url: `http://api.giphy.com/v1/gifs/random?api_key=AD8O568fDRKSYt8aYjhaBGwnhtrV8HRo&tag=cats`,
@@ -112,4 +105,6 @@ $(document).ready(function() {
       }
     });
   });
+
+
 });
