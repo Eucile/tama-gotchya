@@ -92,7 +92,7 @@ $(document).ready(function() {
 
   $('#random-btn').click(function() {
     $.ajax({
-      url: `http://api.giphy.com/v1/gifs/random?api_key=AD8O568fDRKSYt8aYjhaBGwnhtrV8HRo&tag=cats`,
+      url: `http://api.giphy.com/v1/gifs/random?api_key=${process.env.API_KEY}&tag=cats`,
       type: 'GET',
       data: {
         format: 'json'
