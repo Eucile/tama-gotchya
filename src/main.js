@@ -126,23 +126,12 @@ $(document).ready(function() {
       url: url,
 
       success: function(result){
-        if("copyright" in result) {
-          $("#copyright").text("Image Credits: " + result.copyright);
-        }
-        else {
-          $("#copyright").text("Image Credits: " + "Public Domain");
-        }
-
-        // if(result.media_type == "video") {
-        //   $("#apod_img_id").css("display", "none");
-        //   $("#apod_vid_id").attr("src", result.url);
-        // }
-        // else {
-          $("#apod_vid_id").css("display", "none");
-          $("#apod_img_id").attr("src", result.latest_photos[0].img_src);
-        // }
+        var finalIndex = result.latest_photos.length-1;
+        var randomIndex = Math.round((Math.random() * finalIndex));
+        $("#apod_vid_id").css("display", "none");
+        $("#apod_img_id").attr("src", result.latest_photos[randomIndex].img_src);
         $("#reqObject").text(url);
-        $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
+        $("#returnObject").text(JSON.stringify(result.latest_photos[randomIndex].img_src, null, 4));
         $("#apod_explaination").text(result.explanation);
         $("#apod_title").text(result.title);
       }
@@ -157,23 +146,12 @@ $(document).ready(function() {
       url: url,
 
       success: function(result){
-        if("copyright" in result) {
-          $("#copyright").text("Image Credits: " + result.copyright);
-        }
-        else {
-          $("#copyright").text("Image Credits: " + "Public Domain");
-        }
-
-        // if(result.media_type == "video") {
-        //   $("#apod_img_id").css("display", "none");
-        //   $("#apod_vid_id").attr("src", result.url);
-        // }
-        // else {
+        var finalIndex = result.latest_photos.length-1;
+        var randomIndex = Math.round((Math.random() * finalIndex));
           $("#apod_vid_id").css("display", "none");
-          $("#apod_img_id").attr("src", result.latest_photos[0].img_src);
-        // }
+          $("#apod_img_id").attr("src", result.latest_photos[randomIndex].img_src);
         $("#reqObject").text(url);
-        $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
+        $("#returnObject").text(JSON.stringify(result.latest_photos[randomIndex].img_src, null, 4));
         $("#apod_explaination").text(result.explanation);
         $("#apod_title").text(result.title);
       }
@@ -188,29 +166,41 @@ $(document).ready(function() {
       url: url,
 
       success: function(result){
-        if("copyright" in result) {
-          $("#copyright").text("Image Credits: " + result.copyright);
-        }
-        else {
-          $("#copyright").text("Image Credits: " + "Public Domain");
-        }
-
-        // if(result.media_type == "video") {
-        //   $("#apod_img_id").css("display", "none");
-        //   $("#apod_vid_id").attr("src", result.url);
-        // }
-        // else {
+        var finalIndex = result.latest_photos.length-1;
+        var randomIndex = Math.round((Math.random() * finalIndex));
           $("#apod_vid_id").css("display", "none");
-          $("#apod_img_id").attr("src", result.latest_photos[0].img_src);
+          $("#apod_img_id").attr("src", result.latest_photos[randomIndex].img_src);
         // }
         $("#reqObject").text(url);
-        $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
+        $("#returnObject").text(JSON.stringify(result.latest_photos[randomIndex].img_src, null, 4));
         $("#apod_explaination").text(result.explanation);
         $("#apod_title").text(result.title);
       }
     });
 
   });
+
+  $('#bg-btn').click(function() {
+    var url = "https://api.nasa.gov/planetary/apod?api_key=t1VsyntIhxc5q03i1jdEE90m59I4IB3TDA9teDJV";
+    // var url = "https://images-api.nasa.gov/asset/102693"
+
+    $.ajax({
+      url: url,
+
+      success: function(result){
+        $('body').css({
+          "background-image" : 'url("' + result.url + '")',
+          "background-repeat" : "no-repeat",
+          "background-size" : "cover",
+          "color" : "white",
+          "text-shadow" : "2px 2px 1px purple"
+
+        });
+      }
+    });
+
+  });
+
 
   $('#earf-btn').click(function() {
     var url = "https://api.nasa.gov/EPIC/api/enhanced/images?api_key=t1VsyntIhxc5q03i1jdEE90m59I4IB3TDA9teDJV ";
@@ -220,9 +210,11 @@ $(document).ready(function() {
       url: url,
 
       success: function(result){
+        var finalIndex = result.length-1;
+        var randomIndex = Math.round((Math.random() * finalIndex));
 
         var arrayOfEarths = result;
-        var firstItem = arrayOfEarths[0];
+        var firstItem = arrayOfEarths[randomIndex];
         var imageID = firstItem.image;
         var date = firstItem.date;
         date = date.split("");
@@ -232,7 +224,13 @@ $(document).ready(function() {
         var newURL = "https://epic.gsfc.nasa.gov/archive/enhanced/" + date[0] + "/" + date[1] + "/" + date[2] +  "/png/" + imageID +".png"
         console.log(newURL);
 
-          $("#apod_img_id").attr("src", newURL);
+          $('body').css({
+            "background" : 'url("' + newURL + '")',
+            "color" : "white",
+            "text-shadow" : "2px 2px 1px purple"
+
+          });
+
         //
         // $("#reqObject").text(url);
         // $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
