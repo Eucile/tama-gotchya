@@ -1,4 +1,4 @@
-# Project Title
+# TamaGotchyaCats
 
 #### Epicodus JavaScript exercise, Date
 
@@ -6,7 +6,7 @@
 
 ## Description
 
-This is an app that features a tamagotchi, but more importantly it's got API's that spew dino ipsum and cat gifs and info about today's weather and a leaflet map of Nepal.  
+This is an app that features a tamagotchi, but more importantly it's got some neato API's that spew cat gifs and dino ipsum and info about today's humidity and a leaflet map of Nepal.   
 
 ## Specs
 
