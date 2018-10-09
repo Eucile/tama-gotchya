@@ -212,37 +212,59 @@ $(document).ready(function() {
 
   });
 
-  // $('#spirit-btn').click(function() {
-  //   var url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?camera=NAVCAM&api_key=t1VsyntIhxc5q03i1jdEE90m59I4IB3TDA9teDJV";
-  //   // var url = "https://images-api.nasa.gov/asset/102693"
-  //
-  //   $.ajax({
-  //     url: url,
-  //
-  //     success: function(result){
-  //       if("copyright" in result) {
-  //         $("#copyright").text("Image Credits: " + result.copyright);
-  //       }
-  //       else {
-  //         $("#copyright").text("Image Credits: " + "Public Domain");
-  //       }
-  //
-  //       // if(result.media_type == "video") {
-  //       //   $("#apod_img_id").css("display", "none");
-  //       //   $("#apod_vid_id").attr("src", result.url);
-  //       // }
-  //       // else {
-  //         $("#apod_vid_id").css("display", "none");
-  //         $("#apod_img_id").attr("src", result.latest_photos[0].img_src);
-  //       // }
-  //       $("#reqObject").text(url);
-  //       $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
-  //       $("#apod_explaination").text(result.explanation);
-  //       $("#apod_title").text(result.title);
-  //     }
-  //   });
-  //
-  // });
+  $('#earf-btn').click(function() {
+    var url = "https://api.nasa.gov/EPIC/api/enhanced/images?api_key=t1VsyntIhxc5q03i1jdEE90m59I4IB3TDA9teDJV ";
+    // var url = "https://images-api.nasa.gov/asset/102693"
 
+    $.ajax({
+      url: url,
+
+      success: function(result){
+
+        var arrayOfEarths = result;
+        var firstItem = arrayOfEarths[0];
+        var imageID = firstItem.image;
+        var date = firstItem.date;
+        date = date.split("");
+        date = date.splice(0,10);
+        date = date.join('');
+        date = date.split("-");
+        var newURL = "https://epic.gsfc.nasa.gov/archive/enhanced/" + date[0] + "/" + date[1] + "/" + date[2] +  "/png/" + imageID +".png"
+        console.log(newURL);
+
+          $("#apod_img_id").attr("src", newURL);
+        //
+        // $("#reqObject").text(url);
+        // $("#returnObject").text(JSON.stringify(result.latest_photos[0].img_src, null, 4));
+        // $("#apod_explaination").text(result.explanation);
+        // $("#apod_title").text(result.title);
+      }
+    });
+
+  });
+
+
+  $('#genre-btn').click(function() {
+    var genreInput = $('#genre').val();
+    $('#genre').text('');
+    var url = "https://kitsu.io/api/edge/anime?filter[genres]=" + genreInput;
+    $('.genre-output').show();
+    $.ajax({
+      url: url,
+      success: function(result){
+      var finalIndex = result.data.length-1;
+      var randomIndex = Math.round((Math.random() * finalIndex));
+      console.log(randomIndex);
+      $('.genre-output h1').text(result.data[randomIndex].attributes.titles.en_jp);
+      $('.genre-output h3').text(result.data[randomIndex].attributes.startDate);
+      $('#episodes span').text(result.data[randomIndex].attributes.episodeCount);
+      $('#poster').attr("src", result.data[randomIndex].attributes.posterImage.medium);
+      $('.synopsis').text(result.data[randomIndex].attributes.synopsis);
+      $('.age-rating span').text(result.data[randomIndex].attributes.ageRating);
+      $('#rating span').text(result.data[randomIndex].attributes.averageRating);
+    }
+});
+console.log(url);
+});
 
 });
