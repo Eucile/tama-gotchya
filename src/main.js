@@ -106,16 +106,17 @@ $(document).ready(function() {
     });
   });
 
-
-    var getDinos      = $.get('http://dinoipsum.herokuapp.com/api/?format=html&paragraphs=3&words=15'),
-    fillContainer = function(html) {
-      $('#some-awesome-container').html(html);
-    },
-    oops = function() {
-      console.log('Where did all the dinosaurs go?');
-    };
+$('#dino-btn').click(function() {
+  var getDinos      = $.get('http://dinoipsum.herokuapp.com/api/?format=html&paragraphs=3&words=15'),
+  fillContainer = function(html) {
+    $('#some-awesome-container').html(html);
+  },
+  oops = function() {
+    console.log('Where did all the dinosaurs go?');
+  };
 
 getDinos.then(fillContainer, oops);
+});
 
 
 });

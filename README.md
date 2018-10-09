@@ -2,11 +2,11 @@
 
 #### Epicodus JavaScript exercise, Date
 
-#### By Your Name Here
+#### Krystal and Dan
 
 ## Description
 
-Add description here
+This is an app that features a tamagotchi, but more importantly it's got API's that spew dino ipsum and cat gifs and info about today's weather and a leaflet map of Nepal.  
 
 ## Specs
 
